@@ -17,6 +17,13 @@ public:
 	
 	void Display();
 	void DrawPolygon();
+	void DrawRightTrig();
+	void DrawScaleneTrig();
+	void DrawIsoscelesTrig();
+	void DrawEquilateralTrig();
+	void DrawAcuteTrig();
+	void DrawObtuseTrig();
+
 };
 
 
