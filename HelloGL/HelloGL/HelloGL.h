@@ -7,6 +7,33 @@
 
 #define REFRESHRATE 16
 
+struct Vector3
+{
+	float x;
+	float y;
+	float z;
+
+};
+
+struct Camera
+{
+	Vector3 eye;
+	Vector3 center;
+	Vector3 up;
+	
+};
+
+struct Color
+{
+	GLfloat r, g, b;
+};
+
+struct Vertex
+{
+	GLfloat x, y, z;
+};
+
+
 
 class HelloGL
 {
@@ -18,6 +45,11 @@ private:
 	float rotationEquilateralTrig;
 	float rotationAcuteTrig;
 	float rotationObtuseTrig;
+	float rotation;
+	Camera* camera;
+	static Vertex vertices[];
+	static Color colors[];
+
 
 public:
 	//constructor
@@ -33,6 +65,9 @@ public:
 	void DrawEquilateralTrig();
 	void DrawAcuteTrig();
 	void DrawObtuseTrig();
+	void Keyboard(unsigned char key, int x, int y);
+	void DrawCube();
+	void DrawCubeArray();
 
 	void Update();
 
