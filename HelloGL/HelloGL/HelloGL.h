@@ -26,6 +26,9 @@ private:
 	Camera* camera;
 	static Vertex vertices[];
 	static Color colors[];
+	static Vertex indexedVertices[];
+	static Color indexedColors[];
+	static GLushort indices[];
 
 
 public:
@@ -45,6 +48,8 @@ public:
 	void Keyboard(unsigned char key, int x, int y);
 	void DrawCube();
 	void DrawCubeArray();
+	void DrawIndexedCube();
+
 
 
 	void Update();
