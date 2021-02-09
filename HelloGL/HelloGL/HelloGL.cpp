@@ -94,18 +94,19 @@ void HelloGL::Display()
 	DrawEquilateralTrig();*/
 	
 	glPushMatrix();
-	glTranslatef(0.2f, 0.2f, 0.0f);
+	glTranslatef(1.0f, 1.0f, 0.0f);
 	glRotatef(rotation, 1.0f, 0.0f, 0.0f);
-	glutWireTeapot(0.1);
+	glutWireTeapot(1);
 	glPopMatrix();
 
 	glPushMatrix();
-	glTranslatef(-0.2f, -0.2f, -0.0f);
-	glutWireSphere((0.1), (100), (10));
+	glTranslatef(-0.5f, -0.2f, -0.0f);
+	glutWireSphere((1), (100), (10));
 	glPopMatrix();
 
-	DrawCube();
+	//DrawCube();
 
+	DrawCubeArray();
 
 	/*glutWireTorus(GLdouble innerRadius, GLdouble outerRadius, GLint nsides, GLint rings);
 	glutWireIcosahedron();
@@ -162,9 +163,9 @@ void HelloGL::Update()
 void HelloGL::Keyboard(unsigned char key, int x, int y)
 {
 	if (key == 'd')
-		camera->center.x += 0.1f;
+		camera->eye.x += 0.1f;
  if (key == 'a')
-		camera->center.x -= 0.1f;
+		camera->eye.x -= 0.1f;
 	 if (key == 'w')
 		camera->eye.z -= 0.1f;
 	 if (key == 's')
@@ -267,6 +268,19 @@ void HelloGL::DrawCube()
 	glVertex3f(1, -1, -1);
 	glEnd();
 
+}
+
+void HelloGL::DrawCubeArray()
+{
+	glPushMatrix();
+	glBegin(GL_TRIANGLES);
+	for (int i = 0; i < 36; i++)
+	{
+		glColor3fv(&colors[i].r);
+		glVertex3fv(&vertices[i].x);
+	}
+	glEnd();
+	glPopMatrix();
 }
 
 void HelloGL::DrawPolygon()
