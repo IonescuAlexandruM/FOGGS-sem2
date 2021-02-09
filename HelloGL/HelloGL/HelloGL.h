@@ -4,34 +4,11 @@
 #include<gl/GLU.h>
 #include"GL\freeglut.h"
 #include"GLUTCallbacks.h"
+#include"Structures.h"
 
 #define REFRESHRATE 16
 
-struct Vector3
-{
-	float x;
-	float y;
-	float z;
 
-};
-
-struct Camera
-{
-	Vector3 eye;
-	Vector3 center;
-	Vector3 up;
-	
-};
-
-struct Color
-{
-	GLfloat r, g, b;
-};
-
-struct Vertex
-{
-	GLfloat x, y, z;
-};
 
 
 
@@ -68,6 +45,7 @@ public:
 	void Keyboard(unsigned char key, int x, int y);
 	void DrawCube();
 	void DrawCubeArray();
+
 
 	void Update();
 
