@@ -6,8 +6,7 @@
 #include"Structures.h"
 #include"SceneObject.h"
 
-
-class Cube: public SceneObject
+class Pyramid:public SceneObject
 {
 private:
 	static Vertex* indexedVertices;
@@ -20,13 +19,14 @@ private:
 	float pos_x, pos_y, pos_z;
 
 public:
-	Cube(Mesh* mesh,Texture2D* texture,float x,float y,float z);
-	~Cube();
+	Pyramid(Mesh* mesh, float x, float y, float z);
+	~Pyramid();
 
 
 	void Draw();
 	void Update();
 	int GetPosision_z();
 	void SetPosition(float z);
+
 };
 
