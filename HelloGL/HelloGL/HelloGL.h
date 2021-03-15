@@ -6,6 +6,9 @@
 #include"GLUTCallbacks.h"
 #include"Structures.h"
 #include "Cube.h"
+#include"Pyramid.h"
+#include"SceneObject.h"
+#include"MeshLoader.h"
 
 #define REFRESHRATE 16
 
@@ -19,7 +22,7 @@ private:
 	
 	Camera* camera;
 
-	Cube* cube[200];
+	SceneObject* objects[1000];
 
 
 public:
@@ -29,14 +32,11 @@ public:
 	~HelloGL(void);
 
 	void Display();
-
 	void Keyboard(unsigned char key, int x, int y);
-
-
-
-
 	void Update();
 
+	void InitObjects();
+	void InitGL(int argc, char* argv[]);
 };
 
 

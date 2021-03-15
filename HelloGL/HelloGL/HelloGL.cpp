@@ -6,6 +6,18 @@
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
+	
+	InitGL(argc, argv);
+	InitObjects();
+	
+	glutMainLoop();
+
+
+
+}
+
+void HelloGL::InitObjects()
+{
 	//initialize of variables
 	
 	camera = new Camera();
@@ -21,16 +33,28 @@ HelloGL::HelloGL(int argc, char* argv[])
 	camera->up.x = 0.0f;
 	camera->up.y = 1.0f;
 	camera->up.z = 0.0f;
-	Cube::Load((char*)"cube.txt");
-	for (int i = 0; i < 200; i++)
+	Mesh* cubeMesh = MeshLoader::Load((char*)"cube24.txt");
+	Mesh* pyramidMesh = MeshLoader::Load((char*)"pyramid.txt");
+
+	Texture2D* texture_cube = new Texture2D();
+	texture_cube->Load((char*)"Penguins.raw", 512, 512);
+
+
+
+
+	for (int i = 0; i < 500; i++)
 	{
-		cube[i] = new Cube(((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
+		objects[i] = new Cube(cubeMesh, texture_cube, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
+	}
+	for(int i=500;i<1000;i++)
+	{
+		objects[i]=new Pyramid(pyramidMesh, ((rand() % 400) / 10.0f) - 20.0f,((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
 	}
 	
+}
 
-
-
-
+void HelloGL::InitGL(int argc, char* argv[])
+{
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
@@ -48,14 +72,10 @@ HelloGL::HelloGL(int argc, char* argv[])
 	gluPerspective(45, 1, 0.01f, 1000);
 
 	glMatrixMode(GL_MODELVIEW);
+	glEnable(GL_TEXTURE_2D); // without this you will just get white boxes
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
-	glutMainLoop();
-
-
-
 }
 
 void HelloGL::Display()
@@ -63,9 +83,9 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 1000; i++)
 	{
-		cube[i]->Draw();
+		objects[i]->Draw();
 	}
 	
 
@@ -83,11 +103,12 @@ void HelloGL::Update()
 	glLoadIdentity();
 	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, camera->center.x, camera->center.y, camera->center.z, camera->up.x, camera->up.y, camera->up.z);
 	
-	for (int i = 0; i < 200; i++)
+	for (int i = 0; i < 1000; i++)
 	{
-		cube[i]->Update();
-		
+		objects[i]->Update();
+
 	}
+	
 
 
 	glutPostRedisplay();
@@ -120,6 +141,6 @@ HelloGL::~HelloGL(void)
 	delete camera;
 	for (int i = 0; i < 200; i++)
 	{
-		delete cube[i];
+		delete objects[i];
 	}
 }
