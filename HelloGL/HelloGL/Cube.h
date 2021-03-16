@@ -19,6 +19,8 @@ private:
 	Vector3 _position;
 	float pos_x, pos_y, pos_z;
 
+	Material* _material;
+
 public:
 	Cube(Mesh* mesh,Texture2D* texture,float x,float y,float z);
 	~Cube();
@@ -28,5 +30,6 @@ public:
 	void Update();
 	int GetPosision_z();
 	void SetPosition(float z);
+	void GetMaterial();
 };
 
