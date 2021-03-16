@@ -15,6 +15,7 @@ int Cube::numIndices = 0;
 Cube::Cube(Mesh* mesh,Texture2D* texture, float x, float y, float z) :SceneObject(mesh, texture)
 {	
 	Update();
+	GetMaterial();
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
@@ -25,15 +26,19 @@ Cube::Cube(Mesh* mesh,Texture2D* texture, float x, float y, float z) :SceneObjec
 
 void Cube::Draw()
 {
-	if (_mesh->Vertices != nullptr && _mesh->Colors != nullptr && _mesh->Indices != nullptr)
+	if (_mesh->Vertices != nullptr && _mesh->Normals != nullptr && _mesh->Indices != nullptr)
 	{
 		glBindTexture(GL_TEXTURE_2D, _texture->GetID());
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_COLOR_ARRAY);
+		glNormalPointer(GL_FLOAT, 0, _mesh->Normals);
 		glVertexPointer(3, GL_FLOAT, 0, _mesh->Vertices);
-		glColorPointer(3, GL_FLOAT, 0, _mesh->Colors);
 		glTexCoordPointer(2, GL_FLOAT, 0, _mesh->TexCoords);
+		
+		glMaterialfv(GL_FRONT, GL_AMBIENT, &(_material->Ambient.x));
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, &(_material->Diffuse.x));
+		glMaterialfv(GL_FRONT, GL_SPECULAR, &(_material->Specular.x));
+		glMaterialfv(GL_FRONT, GL_SHININESS, &(_material->Shininess));
 
 		glPushMatrix();
 		glTranslatef(_position.x, _position.y, _position.z);
@@ -72,14 +77,36 @@ void Cube::SetPosition(float z)
 
 
 
+
+
+void Cube::GetMaterial()
+{
+	_material = new Material();
+	_material->Ambient.x = 0.5;
+	_material->Ambient.y = 0.5;
+	_material->Ambient.z = 0.5;
+	_material->Ambient.w = 1.0;
+	_material->Diffuse.x = 0.5;
+	_material->Diffuse.y = 0.5;
+	_material->Diffuse.z = 0.5;
+	_material->Diffuse.w = 1.0;
+	_material->Specular.x = 1.0;
+	_material->Specular.y = 1.0;
+	_material->Specular.z = 1.0;
+	_material->Specular.w = 1.0;
+	_material->Shininess = 100.0f;
+}
+
+
 Cube::~Cube()
 {
 	delete indexedVertices;
 	indexedVertices = nullptr;
-	
-	delete indexedColors;
-	indexedColors = nullptr;
 
 	delete indices;
 	indices = nullptr;
+
+	_material = nullptr;
+	delete _material;
+	
 }
