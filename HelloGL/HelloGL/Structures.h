@@ -6,6 +6,11 @@ struct Vector3
 	float y;
 	float z;
 
+};struct Vector2
+{
+	float x;
+	float y;
+
 };
 
 struct Vector4
@@ -27,6 +32,19 @@ struct Color
 };
 
 struct Vertex
+{
+	GLfloat x, y, z;
+};
+
+struct VertexMaster
+{
+	Vector3 position;
+	Vector3 color;
+	Vector2 texcoord;
+	Vector3 normal;
+};
+
+struct Normal
 {
 	GLfloat x, y, z;
 };

@@ -10,6 +10,7 @@ HelloGL::HelloGL(int argc, char* argv[])
 	InitGL(argc, argv);
 	InitObjects();
 	InitLight();
+	InitOBJmodels();
 
 	
 	glutMainLoop();
@@ -28,7 +29,7 @@ void HelloGL::InitObjects()
 	//camera->eye.z = 1.0f;
 	camera->eye.x = 0.0f;
 	camera->eye.y = 0.0f;
-	camera->eye.z = 1.0f;
+	camera->eye.z = 50.0f;
 	camera->center.x = 0.0f;
 	camera->center.y = 0.0f;
 	camera->center.z = 0.0f;
@@ -38,16 +39,17 @@ void HelloGL::InitObjects()
 	Mesh* cubeMesh = MeshLoader::Load((char*)"cubeNormals.txt");
 	//Mesh* pyramidMesh = MeshLoader::Load((char*)"pyramid.txt");
 
-	Texture2D* texture_cube = new Texture2D();
-	texture_cube->Load((char*)"Penguins.raw", 512, 512);
+	Texture2D* texture_cube1 = new Texture2D();
+	texture_cube1->Load((char*)"Penguins.raw", 512, 512);
 
 
 
 
-	for (int i = 0; i < 500; i++)
+	for (int i = 0; i < 100; i++)
 	{
-		objects[i] = new Cube(cubeMesh, texture_cube, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
+		objects[i] = new Cube(cubeMesh, texture_cube1, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
 	}
+
 	/*for(int i=500;i<1000;i++)
 	{
 		objects[i]=new Pyramid(pyramidMesh, ((rand() % 400) / 10.0f) - 20.0f,((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
@@ -95,20 +97,28 @@ void HelloGL::InitLight()
 	_lightPosition->w = 1.0;
 
 	_lightData = new Lighting();
-	_lightData->Ambient.x = 0.8;
-	_lightData->Ambient.y = 0.2;
-	_lightData->Ambient.z = 0.2;
-	_lightData->Ambient.w = 1.0;
-	_lightData->Diffuse.x = 0.6;
-	_lightData->Diffuse.y = 0.8;
-	_lightData->Diffuse.z = 0.6;
-	_lightData->Diffuse.w = 1.0;
-	_lightData->Specular.x = 0.2;
-	_lightData->Specular.y = 0.2;
-	_lightData->Specular.z = 0.8;
-	_lightData->Specular.w = 1.0;
+	_lightData->Ambient.x = 0.8f;
+	_lightData->Ambient.y = 0.2f;
+	_lightData->Ambient.z = 0.2f;
+	_lightData->Ambient.w = 1.0f;
+	_lightData->Diffuse.x = 0.6f;
+	_lightData->Diffuse.y = 0.8f;
+	_lightData->Diffuse.z = 0.6f;
+	_lightData->Diffuse.w = 1.0f;
+	_lightData->Specular.x = 0.2f;
+	_lightData->Specular.y = 0.2f;
+	_lightData->Specular.z = 0.8f;
+	_lightData->Specular.w = 1.0f;
+	
 
+}
+void HelloGL::InitOBJmodels()
+{
+	vector<Mesh*>meshes;
 
+	vector<VertexMaster> mesh;
+	mesh = loadOBJ("objfiles/cube.obj");
+	//meshes.push_back(new Mesh());
 }
 
 void HelloGL::Display()
@@ -116,15 +126,21 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	
-	for (int i = 0; i < 500; i++)
+	for (int i = 0; i <100; i++)
 	{
 		objects[i]->Draw();
 	}
 
-	Vector3 v = { -1.4f, 0.7f,-10.2f };
+	Vector3 v = { -2.0f, 2.0f,-10.0f };
 	Color c = { 1.0f, 1.0f, -1.0f };
 	DrawString("OpenGL FOGGs Project", &v, &c);
 	
+
+	Vector3 v1 = { -0.5f,-0.2f ,-2.0f};
+	Color c1 = { 0.f,0.f,0.f };
+	DrawString("Only penguins drawn on cubes", &v1, &c1);
+
+
 	glutSwapBuffers();
 	glFlush();
 
@@ -145,7 +161,7 @@ void HelloGL::Update()
 	glLightf(GL_LIGHT0, GL_POSITION, (_lightPosition->x));
 
 
-	for (int i = 0; i < 500; i++)
+	for (int i = 0; i <100; i++)
 	{
 		objects[i]->Update();
 	}
@@ -165,11 +181,12 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 	if (key == 'a')
 		camera->eye.x -= 0.1f;
 	if (key == 'w')
-		if(camera->eye.z>0.1)
+		if (camera->eye.z > 0.1)
 			camera->eye.z -= 0.1f;
 	if (key == 's')
 		camera->eye.z += 0.1f;
 
+		
 }
 
 
