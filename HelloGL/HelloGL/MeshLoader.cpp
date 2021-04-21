@@ -1,21 +1,24 @@
 #include "MeshLoader.h"
-
 #include <iostream>
 #include <fstream>
+
 
 using namespace std;
 
 namespace MeshLoader
 {
+
+
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
 	void LoadNormals(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
 	void LoadCoordinates(ifstream& inFile, Mesh& mesh);
 
+
 	void LoadVertices(ifstream& inFile, Mesh& mesh)
 	{
 		inFile >> mesh.VertexCount;
-
+		
 		if (mesh.VertexCount > 0)
 		{
 			mesh.Vertices = new Vertex[mesh.VertexCount];
@@ -28,7 +31,7 @@ namespace MeshLoader
 			}
 		}
 	}
-
+	
 
 	void MeshLoader::LoadCoordinates(ifstream& inFile, Mesh& mesh)
 	{

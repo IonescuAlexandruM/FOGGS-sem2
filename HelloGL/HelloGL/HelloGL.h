@@ -9,11 +9,9 @@
 #include"Pyramid.h"
 #include"SceneObject.h"
 #include"MeshLoader.h"
+#include "objLoader.h"
 
 #define REFRESHRATE 16
-
-
-
 
 
 class HelloGL
@@ -40,8 +38,10 @@ public:
 
 	void InitObjects();
 	void InitLight();
+	void InitOBJmodels();
 	void InitGL(int argc, char* argv[]);
 	void DrawString(const char* text, Vector3* position, Color* color);
+
 };
 
 
