@@ -113,7 +113,7 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 		cout << line << endl;
 
 	}
-	//build one big vertex array that includes positions, normals, textures coordonates, and colors
+	//build one big vertex array that includes positions, normals, textures coordonates
 	vertices.resize(vertex_position_indices.size(), VertexMaster());
 		//load all indices
 		for (size_t i = 0; i < vertices.size(); i++)
@@ -121,7 +121,6 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 			vertices[i].position = vertex_position[vertex_position_indices[i] - 1];
 			vertices[i].texcoord = vertex_texcoord[vertex_texcoord_indices[i] - 1];
 			vertices[i].normal = vertex_normal[vertex_normal_indices[i] - 1];
-			vertices[i].color = Vector3{1.f,1.f,1.f};
 		}
 
 			//loaded success

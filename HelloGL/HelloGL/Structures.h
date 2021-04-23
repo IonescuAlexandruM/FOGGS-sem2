@@ -39,7 +39,7 @@ struct Vertex
 struct VertexMaster
 {
 	Vector3 position;
-	Vector3 color;
+
 	Vector2 texcoord;
 	Vector3 normal;
 };
