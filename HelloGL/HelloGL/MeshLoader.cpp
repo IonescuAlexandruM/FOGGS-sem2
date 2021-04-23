@@ -7,8 +7,6 @@ using namespace std;
 
 namespace MeshLoader
 {
-
-
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
 	void LoadNormals(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
@@ -33,7 +31,7 @@ namespace MeshLoader
 	}
 	
 
-	void MeshLoader::LoadCoordinates(ifstream& inFile, Mesh& mesh)
+	void LoadCoordinates(ifstream& inFile, Mesh& mesh)
 	{
 		inFile >> mesh.TexCoordCount;
 		if (mesh.TexCoordCount > 0)
@@ -101,7 +99,5 @@ namespace MeshLoader
 	
 
 		return mesh;
-	}
-
-	
+	}	
 }

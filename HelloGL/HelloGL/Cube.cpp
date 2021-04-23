@@ -20,8 +20,6 @@ Cube::Cube(Mesh* mesh,Texture2D* texture, float x, float y, float z) :SceneObjec
 	_position.y = y;
 	_position.z = z;
 	_rotation = 0.0f;
-	
-
 }
 
 void Cube::Draw()
@@ -74,10 +72,6 @@ void Cube::SetPosition(float z)
 {
 	_position.z = z;
 }
-
-
-
-
 
 void Cube::GetMaterial()
 {

@@ -61,18 +61,21 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 		{
 
 		}
-		else if (prefix == "v")//vertex pos
+		else if (prefix == "v")
 		{
+			//pushing back positions
 			ss >> temp_vec3.x >> temp_vec3.y >> temp_vec3.z;
 			vertex_position.push_back(temp_vec3);
 		}
 		else if (prefix == "vt")
 		{
+			//pushing back texture coordinates
 			ss >> temp_vec2.x >> temp_vec2.y;
 			vertex_texcoord.push_back(temp_vec2);
 		}
 		else if (prefix == "vn")
 		{
+			//pushing back normals 
 			ss >> temp_vec3.x >> temp_vec3.y >> temp_vec3.z;
 			vertex_normal.push_back(temp_vec3);
 		}

@@ -6,7 +6,7 @@
 
 HelloGL::HelloGL(int argc, char* argv[])
 {
-	
+	//calls the initialization funtions
 	InitGL(argc, argv);
 	InitObjects();
 	InitLight();
@@ -14,19 +14,12 @@ HelloGL::HelloGL(int argc, char* argv[])
 
 	
 	glutMainLoop();
-
-
-
 }
 
 void HelloGL::InitObjects()
 {
-	//initialize of variables
-	
+	//initialize variables
 	camera = new Camera();
-	//camera->eye.x = 0.0f;
-	//camera->eye.y = 0.0f;
-	//camera->eye.z = 1.0f;
 	camera->eye.x = 0.0f;
 	camera->eye.y = 0.0f;
 	camera->eye.z = 50.0f;
@@ -36,29 +29,25 @@ void HelloGL::InitObjects()
 	camera->up.x = 0.0f;
 	camera->up.y = 1.0f;
 	camera->up.z = 0.0f;
+	//loading object from file
 	Mesh* cubeMesh = MeshLoader::Load((char*)"cubeNormals.txt");
 	//Mesh* pyramidMesh = MeshLoader::Load((char*)"pyramid.txt");
 
+	//applying texture for the object from file
 	Texture2D* texture_cube1 = new Texture2D();
 	texture_cube1->Load((char*)"Penguins.raw", 512, 512);
 
 
-
-
+	//creating the objects 
 	for (int i = 0; i < 100; i++)
 	{
 		objects[i] = new Cube(cubeMesh, texture_cube1, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
-	}
-
-	/*for(int i=500;i<1000;i++)
-	{
-		objects[i]=new Pyramid(pyramidMesh, ((rand() % 400) / 10.0f) - 20.0f,((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
-	}*/
-	
+	}	
 }
 
 void HelloGL::InitGL(int argc, char* argv[])
 {
+	//initialize the window
 	GLUTCallbacks::Init(this);
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_DEPTH);
@@ -70,6 +59,7 @@ void HelloGL::InitGL(int argc, char* argv[])
 	glutKeyboardFunc(GLUTCallbacks::Keyboard);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
+
 	//Set the viewport to be the entire window
 	glViewport(0, 0, 800, 800);
 	//Set the correct perspective
@@ -77,8 +67,8 @@ void HelloGL::InitGL(int argc, char* argv[])
 
 	glMatrixMode(GL_MODELVIEW);
 
-	//Enables
-	glEnable(GL_TEXTURE_2D); // without this you will just get white boxes
+	//Enable textures, depth test, back face culling, lights
+	glEnable(GL_TEXTURE_2D); 
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 	glEnable(GL_NORMAL_ARRAY);
@@ -90,12 +80,14 @@ void HelloGL::InitGL(int argc, char* argv[])
 
 void HelloGL::InitLight()
 {
+	//initialize lights position
 	_lightPosition = new Vector4();
 	_lightPosition->x = 0.0;
 	_lightPosition->y = 0.0;
 	_lightPosition->z = 1.0;
 	_lightPosition->w = 1.0;
 
+	//initialize ambient light, diffuse light, specular light
 	_lightData = new Lighting();
 	_lightData->Ambient.x = 0.8f;
 	_lightData->Ambient.y = 0.2f;
@@ -125,12 +117,13 @@ void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	
-	for (int i = 0; i <100; i++)
+	//draws the objects on screen 
+	for (int i = 0; i < 100; i++)
 	{
 		objects[i]->Draw();
 	}
 
+	//initialize the text
 	Vector3 v = { -2.0f, 2.0f,-10.0f };
 	Color c = { 1.0f, 1.0f, -1.0f };
 	DrawString("OpenGL FOGGs Project", &v, &c);
@@ -154,20 +147,24 @@ void HelloGL::Update()
 	//reset modelview before each frame
 	glLoadIdentity();
 
+	//camera viewing
 	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z, camera->center.x, camera->center.y, camera->center.z, camera->up.x, camera->up.y, camera->up.z);
+	
+	//uses light data 
 	glLightf(GL_LIGHT0, GL_AMBIENT, (_lightData->Ambient.x));
 	glLightf(GL_LIGHT0, GL_DIFFUSE, (_lightData->Diffuse.x));
 	glLightf(GL_LIGHT0, GL_SPECULAR, (_lightData->Specular.x));
 	glLightf(GL_LIGHT0, GL_POSITION, (_lightPosition->x));
 
 
+	//updates the objects
 	for (int i = 0; i <100; i++)
 	{
 		objects[i]->Update();
 	}
 	
 	glutPostRedisplay();
-	//Sleep(20);
+
 	
 
 
@@ -176,6 +173,7 @@ void HelloGL::Update()
 
 void HelloGL::Keyboard(unsigned char key, int x, int y)
 {
+	//gets user input
 	if (key == 'd')
 		camera->eye.x += 0.1f;
 	if (key == 'a')
@@ -186,7 +184,6 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 	if (key == 's')
 		camera->eye.z += 0.1f;
 
-		
 }
 
 
@@ -194,7 +191,7 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 HelloGL::~HelloGL(void)
 {
 	delete camera;
-	for (int i = 0; i < 500; i++)
+	for (int i = 0; i < 100; i++)
 	{
 		delete objects[i];
 	}
