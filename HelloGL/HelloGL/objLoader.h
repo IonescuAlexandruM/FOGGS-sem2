@@ -45,23 +45,8 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 		ss.str(line);
 		ss >> prefix;
 
-		if (prefix == "#")
-		{
-
-		}
-		else if (prefix == "o")
-		{
-
-		}
-		else if (prefix == "s")
-		{
-
-		}
-		else if (prefix == "usemtl")
-		{
-
-		}
-		else if (prefix == "v")//vertex pos
+		
+		if (prefix == "v")//vertex pos
 		{
 			ss >> temp_vec3.x >> temp_vec3.y >> temp_vec3.z;
 			vertex_position.push_back(temp_vec3);
@@ -106,10 +91,7 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 					counter = 0;
 			}
 		}
-		else
-		{
-
-		}
+	
 		cout << line << endl;
 
 	}
@@ -121,7 +103,6 @@ static vector<VertexMaster> loadOBJ(const char* file_name)
 			vertices[i].position = vertex_position[vertex_position_indices[i] - 1];
 			vertices[i].texcoord = vertex_texcoord[vertex_texcoord_indices[i] - 1];
 			vertices[i].normal = vertex_normal[vertex_normal_indices[i] - 1];
-			vertices[i].color = Vector3{1.f,1.f,1.f};
 		}
 
 			//loaded success

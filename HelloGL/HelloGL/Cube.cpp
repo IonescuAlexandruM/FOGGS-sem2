@@ -65,9 +65,7 @@ void Cube::Update()
 
 int Cube::GetPosision_z()
 {
-	
 	return _position.z;
-
 }
 
 void Cube::SetPosition(float z)

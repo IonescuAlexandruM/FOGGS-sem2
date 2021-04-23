@@ -39,7 +39,7 @@ struct Vertex
 struct VertexMaster
 {
 	Vector3 position;
-	Vector3 color;
+	Vector3 indices;
 	Vector2 texcoord;
 	Vector3 normal;
 };
@@ -53,11 +53,15 @@ struct TexCoord
 {
 	GLfloat u, v;
 };
+struct Indices
+{
+//	GLfloat x, y, z;
+};
 
 struct Mesh
 {
 	Vertex* Vertices;
-	Vector3* Normals;
+	Normal* Normals;
 	GLushort* Indices;
 	int VertexCount, NormalCount, IndexCount, TexCoordCount;
 	TexCoord* TexCoords;

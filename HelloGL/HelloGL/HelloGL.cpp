@@ -1,6 +1,7 @@
 #include "HelloGL.h"
 #include "GlutCallbacks.h"
-
+#include<iostream>
+#include<fstream>
 
 
 
@@ -24,9 +25,6 @@ void HelloGL::InitObjects()
 	//initialize of variables
 	
 	camera = new Camera();
-	//camera->eye.x = 0.0f;
-	//camera->eye.y = 0.0f;
-	//camera->eye.z = 1.0f;
 	camera->eye.x = 0.0f;
 	camera->eye.y = 0.0f;
 	camera->eye.z = 50.0f;
@@ -36,24 +34,59 @@ void HelloGL::InitObjects()
 	camera->up.x = 0.0f;
 	camera->up.y = 1.0f;
 	camera->up.z = 0.0f;
-	Mesh* cubeMesh = MeshLoader::Load((char*)"cubeNormals.txt");
-	//Mesh* pyramidMesh = MeshLoader::Load((char*)"pyramid.txt");
+
+
+	//Mesh* cube2 = new Mesh;
+	////cube2->IndexCount = ;
+	//cube2->VertexCount = 7;
+	//cube2.
+
+	
+	//ofstream myFile("createCube.txt");
+	//
+	//myFile << 8 << endl;
+	//for (int i = 0; i < 8; i++)
+	//{
+	//	myFile << cubeOBJ[i].position.x << " " << cubeOBJ[i].position.y << " " << cubeOBJ[i].position.z << endl;
+	//}
+
+	//myFile << 14 << endl;
+	//for (int i = 9; i < 23; i++)
+	//{
+	//	myFile << cubeOBJ[i].texcoord.x << " " << cubeOBJ[i].texcoord.y << endl;
+	//}
+
+	//myFile << 6 << endl;
+	//for (int i = 24; i < 30; i++)
+	//{
+	//	myFile << cubeOBJ[i].normal.x << " " << cubeOBJ[i].normal.y << " " << cubeOBJ[i].normal.z << endl;
+	//}
+
+	/*myFile << 36 << endl;
+	for (int i = 31; i < 36; i++)
+	{
+		myFile << cubeOBJ[i].indices.x << " " << cubeOBJ[i].indices.y << " " << cubeOBJ[i].indices.z << endl;
+	}*/
+
+	//myFile.close();
+
+	Mesh* cubeMesh = MeshLoader::Load((char*)"objfiles/cube.obj");
+	//Mesh* pyramidMesh = MeshLoader::Load((char*)"pyraid.txt");
 
 	Texture2D* texture_cube1 = new Texture2D();
 	texture_cube1->Load((char*)"Penguins.raw", 512, 512);
 
-
-
+	//vector<VertexMaster> cubeOBJ = loadOBJ("objfiles/cube.obj");
+	
+	//Mesh* mesh = new Mesh();
+	//mesh->Vertices=MeshLoader::
 
 	for (int i = 0; i < 100; i++)
 	{
 		objects[i] = new Cube(cubeMesh, texture_cube1, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
 	}
 
-	/*for(int i=500;i<1000;i++)
-	{
-		objects[i]=new Pyramid(pyramidMesh, ((rand() % 400) / 10.0f) - 20.0f,((rand() % 200) / 10.0f) - 10.0f, -(rand() % 1000) / 10.0f);
-	}*/
+
 	
 }
 
@@ -114,11 +147,12 @@ void HelloGL::InitLight()
 }
 void HelloGL::InitOBJmodels()
 {
-	vector<Mesh*>meshes;
-
-	vector<VertexMaster> mesh;
-	mesh = loadOBJ("objfiles/cube.obj");
-	//meshes.push_back(new Mesh());
+	//vector<Mesh*>meshes;
+	//vector<VertexMaster> mesh;
+	//mesh = loadOBJ("objfiles/cube.obj");
+	//meshes.push_back(new Cube(mesh,));
+	
+	
 }
 
 void HelloGL::Display()
@@ -167,11 +201,6 @@ void HelloGL::Update()
 	}
 	
 	glutPostRedisplay();
-	//Sleep(20);
-	
-
-
-
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y)
