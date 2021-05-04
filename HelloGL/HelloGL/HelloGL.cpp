@@ -165,10 +165,6 @@ void HelloGL::Update()
 	
 	glutPostRedisplay();
 
-	
-
-
-
 }
 
 void HelloGL::Keyboard(unsigned char key, int x, int y)
